@@ -1,0 +1,8 @@
+fileignoreconfig:
+- filename: ruby-authentication-service/service.rb
+  checksum: 14672725c6bc5a62f089b851dbaf31b5f958c20023152685639795c37c52ac91
+- filename: ruby-authentication-service/README.md
+  checksum: 65b60b387f1c7d89e99cac09047c5ec58cefbbb7bc375e5f4cf1749d17fcd4de
+- filename: golang-order-service/go.sum
+  checksum: 7ca41040d381e4d3cf69f41480f1e62eb11481afe344596395da811a9d2374b5
+version: ""
