@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  authentication-service:
+    image: pamitedu/ruby-authentication-service:latest
+    build:
+      context: ruby-authentication-service
+      dockerfile: Dockerfile
+    container_name: ruby-authentication-service
+    ports:
+      - "4567:4567"
+    networks:
+      - sample-services-network
+
+  order-service:
+    depends_on:
+      - authentication-service
+    image: pamitedu/golang-order-service:latest
+    build:
+      context: golang-order-service
+      dockerfile: Dockerfile
+    container_name: golang-order-service
+    ports:
+      - "8080:8080"
+    environment:
+      AUTH_SERVICE_URL: http://ruby-authentication-service:4567
+    networks:
+      - sample-services-network
+
+networks:
+  sample-services-network:
