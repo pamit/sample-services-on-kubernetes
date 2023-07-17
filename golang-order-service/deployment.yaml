@@ -1,0 +1,71 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "2"
+  labels:
+    app: golang-order-service
+  name: golang-order-service
+  namespace: default
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: golang-order-service
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/restartedAt: "2023-07-18T00:16:56+10:00"
+      creationTimestamp: null
+      labels:
+        app: golang-order-service
+    spec:
+      containers:
+      - image: pamitedu/golang-order-service:latest
+        imagePullPolicy: Never
+        name: golang-order-service
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        # env:
+        #   - name: AUTH_SERVICE_URL
+        #     value: http://ruby-authentication-service:4567
+        envFrom:
+          - configMapRef:
+              name: golang-order-service
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: "2023-07-17T14:14:03Z"
+  labels:
+    app: golang-order-service
+  name: golang-order-service
+  namespace: default
+spec:
+  externalTrafficPolicy: Cluster
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - nodePort: 30738
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: golang-order-service
+  sessionAffinity: None
+  type: NodePort

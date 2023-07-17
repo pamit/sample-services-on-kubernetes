@@ -37,6 +37,7 @@ func Authenticate(context *gin.Context) {
 	}
 
 	var message string
+	fmt.Println("[OrderService] Calling Authentication service: " + authServiceURL)
 	resp, err := http.Get(authServiceURL + "/signin")
 	if err != nil {
 		fmt.Println("[OrderService] Cannot contact Authentication service: " + authServiceURL)
