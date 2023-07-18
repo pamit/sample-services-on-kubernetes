@@ -2,7 +2,7 @@
 
 This repository contains 2 sample services, a Ruby authentication service and a Golang order service which calls the authentication service.
 
-You can read the main article on Medium: https://pamit.medium.com/
+You can read the main article on Medium: [Getting started with Kubernetes and Minikube](https://pamit.medium.com/getting-started-with-kubernetes-and-minikube-4037e2bdc9ca)
 
 # Getting started
 
